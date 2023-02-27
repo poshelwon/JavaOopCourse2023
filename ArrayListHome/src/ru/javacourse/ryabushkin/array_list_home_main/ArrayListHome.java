@@ -16,39 +16,35 @@ public class ArrayListHome {
         }
     }
 
-    public static ArrayList<Integer> getUniqueValuesList(ArrayList<Integer> list) {
-        if (list.isEmpty()) {
-            throw new IllegalStateException();
-        }
+    public static ArrayList<Integer> getUniqueValuesList(ArrayList<String> list) {
+        ArrayList<Integer> resultList = new ArrayList<>(list.size());
 
-        ArrayList<Integer> resultList = new ArrayList<>();
-
-        for (Integer item : list) {
-            if (!resultList.contains(item)) {
-                resultList.add(item);
+        for (String item : list) {
+            if (!resultList.contains(convertToInt(item))) {
+                resultList.add(convertToInt(item));
             }
         }
 
         return resultList;
     }
 
-    public static ArrayList<Integer> readStringsFileNumbers(String path) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(path));
-        String string;
+    public static ArrayList<String> readFileStrings(String path) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String line;
 
-        ArrayList<Integer> list = new ArrayList<>();
-        while ((string = reader.readLine()) != null) {
-            list.add(toInt(string));
+            ArrayList<String> list = new ArrayList<>();
+
+            while ((line = reader.readLine()) != null) {
+                list.add(line);
+            }
+
+            return list;
+        } catch (FileNotFoundException e) {
+            throw new FileNotFoundException("[File not found]: " + path);
         }
-
-        if (list.isEmpty()) {
-            throw new IllegalStateException();
-        }
-
-        return list;
     }
 
-    private static int toInt(Object obj) throws NumberFormatException {
+    private static int convertToInt(Object obj) throws NumberFormatException {
         return Integer.parseInt(obj.toString());
     }
 
@@ -56,35 +52,41 @@ public class ArrayListHome {
         String filePath = "C:\\Users\\poshelwon\\IdeaProjects\\JavaOopCourse2023\\ArrayListHome\\numbers";
 
         try {
-            ArrayList<Integer> fileLinesList = readStringsFileNumbers(filePath);
+            ArrayList<String> fileLinesList = readFileStrings(filePath);
 
             System.out.println("Input list: " + fileLinesList);
 
-            fileLinesList.replaceAll(ArrayListHome::toInt);
+            ArrayList<Integer> numbersList = new ArrayList<>(fileLinesList.size());
 
-            removeEvenNumbers(fileLinesList);
+            for (String item : fileLinesList) {
+                numbersList.add(convertToInt(item));
+            }
 
-            System.out.println("Not even numbers list: " + fileLinesList);
-        } catch (FileNotFoundException e) {
-            System.err.println("[File not found]: " + filePath);
-        } catch (IllegalStateException e) {
-            System.err.println("[Empty file]: " + filePath);
+            removeEvenNumbers(numbersList);
+
+            System.out.println("Not even numbers list: " + numbersList);
+        } catch (FileNotFoundException | IllegalStateException e) {
+            System.err.println(e.getMessage());
         } catch (NumberFormatException e) {
             System.err.println("[File does not contain numbers]: " + filePath);
         } catch (IOException e) {
             System.err.println("[Input/output exception]");
         }
 
-        ArrayList<Integer> numbersList = new ArrayList<>(Arrays.asList(5, 2, 2, 3, 4, 3, 4, 5, 4));
-
-        System.out.println("List: " + numbersList);
-
-        System.out.print("Unique values list: ");
+        filePath = "C:\\Users\\poshelwon\\IdeaProjects\\JavaOopCourse2023\\ArrayListHome\\numbers2";
 
         try {
-            System.out.println(getUniqueValuesList(numbersList));
-        } catch (IllegalStateException e) {
-            System.err.println("[Empty list]");
+            ArrayList<String> fileLinesList = readFileStrings(filePath);
+
+            System.out.println("Input list2: " + fileLinesList);
+
+            System.out.println("Unique values list2: " + getUniqueValuesList(fileLinesList));
+        } catch (FileNotFoundException | IllegalStateException e) {
+            System.err.println(e.getMessage());
+        } catch (NumberFormatException e) {
+            System.err.println("[File does not contain numbers]: " + filePath);
+        } catch (IOException e) {
+            System.err.println("[Input/output exception]");
         }
     }
 }
