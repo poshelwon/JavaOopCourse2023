@@ -3,20 +3,17 @@ package ru.javacourse.ryabushkin.matrix_main;
 import ru.javacourse.ryabushkin.matrix.Matrix;
 import ru.javacourse.ryabushkin.vector.Vector;
 
-import javax.naming.LimitExceededException;
-import java.util.Arrays;
-
 public class Main {
-    public static void main(String[] args) throws LimitExceededException {
-        Matrix matrix1 = new Matrix(3, 4); //first constructor
+    public static void main(String[] args){
+        Matrix matrix1 = new Matrix(3, 4); // first constructor
 
         System.out.println("Matrix1 = " + matrix1);
 
-        Matrix matrix2 = new Matrix(matrix1); //second constructor
+        Matrix matrix2 = new Matrix(matrix1); // second constructor
 
         System.out.println("Matrix2 = " + matrix2);
 
-        double[][] matrix3Array = new double[][]{
+        double[][] matrix3Array = {
                 {0, 9, 8},
                 {7},
                 {6, 5},
@@ -35,23 +32,24 @@ public class Main {
 
         Matrix matrix4 = new Matrix(matrix4Array); // fourth constructor
 
-        System.out.println("Matrix4 = " + matrix4 + ", sizes = " + Arrays.toString(matrix4.getSize()));
+        System.out.println("Matrix4 = " + matrix4 + ", sizes = [" + matrix4.getRowsCount() + ", "
+                + matrix4.getColumnsCount() + "]");
 
         System.out.println();
 
-        Vector vector1 = matrix4.getVector(2);
+        Vector vector1 = matrix4.getRow(2);
         vector1.multiplyByScalar(2);
-        matrix4.setVector(2, vector1);
+        matrix4.setRow(2, vector1);
 
         System.out.println("Matrix4 = " + matrix4);
 
-        Vector columnVector = matrix4.getColumnVector(2);
+        Vector columnVector = matrix4.getColumn(2);
 
         System.out.println("Matrix4, column2 = " + columnVector);
 
-        matrix4.transposeMatrix();
+        matrix3.transpose();
 
-        System.out.println("Matrix4 transpose. Matrix4 = " + matrix4);
+        System.out.println("Matrix3 transpose. Matrix3 = " + matrix3);
 
         matrix1.multiplyByScalar(-1);
 
@@ -94,11 +92,9 @@ public class Main {
 
         Matrix matrix8 = new Matrix(matrix8array);
 
-        Vector vector2 = matrix8.getVector(1);
+        Vector vector2 = matrix8.getRow(1);
 
-        matrix8.multiplyByVector(vector2);
-
-        System.out.println("Matrix8 multiply by vector2 = " + matrix8);
+        System.out.println("Matrix8 multiply by vector2 = " + matrix8.getMultiplyByVector(vector2));
 
         System.out.println("Matrix sum = " + Matrix.getSum(matrix4, matrix4));
 
