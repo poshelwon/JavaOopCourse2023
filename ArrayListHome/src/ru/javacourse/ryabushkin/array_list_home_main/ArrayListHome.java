@@ -16,19 +16,19 @@ public class ArrayListHome {
         }
     }
 
-    public static ArrayList<Integer> getUniqueValuesList(ArrayList<String> list) {
+    public static ArrayList<Integer> getUniqueValuesList(ArrayList<Integer> list) {
         ArrayList<Integer> resultList = new ArrayList<>(list.size());
 
-        for (String item : list) {
-            if (!resultList.contains(convertToInt(item))) {
-                resultList.add(convertToInt(item));
+        for (Integer item : list) {
+            if (!resultList.contains(item)) {
+                resultList.add(item);
             }
         }
 
         return resultList;
     }
 
-    public static ArrayList<String> readFileStrings(String path) throws IOException {
+    public static ArrayList<String> readFileLines(String path) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;
 
@@ -39,12 +39,10 @@ public class ArrayListHome {
             }
 
             return list;
-        } catch (FileNotFoundException e) {
-            throw new FileNotFoundException("[File not found]: " + path);
         }
     }
 
-    private static int convertToInt(Object obj) throws NumberFormatException {
+    private static int convertToInt(Object obj) {
         return Integer.parseInt(obj.toString());
     }
 
@@ -52,7 +50,7 @@ public class ArrayListHome {
         String filePath = "C:\\Users\\poshelwon\\IdeaProjects\\JavaOopCourse2023\\ArrayListHome\\numbers";
 
         try {
-            ArrayList<String> fileLinesList = readFileStrings(filePath);
+            ArrayList<String> fileLinesList = readFileLines(filePath);
 
             System.out.println("Input list: " + fileLinesList);
 
@@ -65,8 +63,8 @@ public class ArrayListHome {
             removeEvenNumbers(numbersList);
 
             System.out.println("Not even numbers list: " + numbersList);
-        } catch (FileNotFoundException | IllegalStateException e) {
-            System.err.println(e.getMessage());
+        } catch (FileNotFoundException e) {
+            System.err.println("[File not found]: " + filePath);
         } catch (NumberFormatException e) {
             System.err.println("[File does not contain numbers]: " + filePath);
         } catch (IOException e) {
@@ -76,13 +74,19 @@ public class ArrayListHome {
         filePath = "C:\\Users\\poshelwon\\IdeaProjects\\JavaOopCourse2023\\ArrayListHome\\numbers2";
 
         try {
-            ArrayList<String> fileLinesList = readFileStrings(filePath);
+            ArrayList<String> fileLinesList = readFileLines(filePath);
 
             System.out.println("Input list2: " + fileLinesList);
 
-            System.out.println("Unique values list2: " + getUniqueValuesList(fileLinesList));
-        } catch (FileNotFoundException | IllegalStateException e) {
-            System.err.println(e.getMessage());
+            ArrayList<Integer> numbersList = new ArrayList<>(fileLinesList.size());
+
+            for (String item : fileLinesList) {
+                numbersList.add(convertToInt(item));
+            }
+
+            System.out.println("Unique values list2: " + getUniqueValuesList(numbersList));
+        } catch (FileNotFoundException e) {
+            System.err.println("[File not found]: " + filePath);
         } catch (NumberFormatException e) {
             System.err.println("[File does not contain numbers]: " + filePath);
         } catch (IOException e) {
