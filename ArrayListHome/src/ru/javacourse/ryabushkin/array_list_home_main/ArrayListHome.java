@@ -50,13 +50,13 @@ public class ArrayListHome {
         String filePath = "C:\\Users\\poshelwon\\IdeaProjects\\JavaOopCourse2023\\ArrayListHome\\numbers";
 
         try {
-            ArrayList<String> fileLinesList = readFileLines(filePath);
+            ArrayList<String> fileLineList = readFileLines(filePath);
 
-            System.out.println("Input list: " + fileLinesList);
+            System.out.println("Input list: " + fileLineList);
 
-            ArrayList<Integer> numbersList = new ArrayList<>(fileLinesList.size());
+            ArrayList<Integer> numbersList = new ArrayList<>(fileLineList.size());
 
-            for (String item : fileLinesList) {
+            for (String item : fileLineList) {
                 numbersList.add(convertToInt(item));
             }
 
@@ -74,13 +74,13 @@ public class ArrayListHome {
         filePath = "C:\\Users\\poshelwon\\IdeaProjects\\JavaOopCourse2023\\ArrayListHome\\numbers2";
 
         try {
-            ArrayList<String> fileLinesList = readFileLines(filePath);
+            ArrayList<String> fileLineList = readFileLines(filePath);
 
-            System.out.println("Input list2: " + fileLinesList);
+            System.out.println("Input list2: " + fileLineList);
 
-            ArrayList<Integer> numbersList = new ArrayList<>(fileLinesList.size());
+            ArrayList<Integer> numbersList = new ArrayList<>(fileLineList.size());
 
-            for (String item : fileLinesList) {
+            for (String item : fileLineList) {
                 numbersList.add(convertToInt(item));
             }
 
