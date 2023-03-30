@@ -1,7 +1,6 @@
 package ru.javacourse.ryabushkin.list;
 
 public class ListItem<T> {
-    /*
     private T value;
     private ListItem<T> next;
 
@@ -10,9 +9,9 @@ public class ListItem<T> {
         next = null;
     }
 
-    public ListItem(T value, ListItem<T> next) {
-        this.value = value;
-        this.next = next;
+    @Override
+    public String toString() {
+        return this.value.toString();
     }
 
     public T getValue() {
@@ -30,8 +29,4 @@ public class ListItem<T> {
     public void setNext(ListItem<T> next) {
         this.next = next;
     }
-
-}
-
-     */
 }
