@@ -94,7 +94,7 @@ public class Main {
 
         Vector vector2 = matrix8.getRow(1);
 
-        System.out.println("Matrix8 multiply by vector2 = " + matrix8.getMultiplyByVector(vector2));
+        System.out.println("Matrix8 multiply by vector2 = " + matrix8.multiplyByVector(vector2));
 
         System.out.println("Matrix sum = " + Matrix.getSum(matrix4, matrix4));
 
